@@ -8,8 +8,13 @@ import {
   Alert 
 } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { NavigationContainer } from "@react-navigation/native";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { WebView } from "react-native-webview";
 
-export default function App() {
+const Tab = createBottomTabNavigator();
+
+function LoyaltyScreen() {
   const [orderCount, setOrderCount] = useState(0);
 
   useEffect(() => {
@@ -86,6 +91,25 @@ export default function App() {
         <Text style={styles.buttonText}>Redeem Free Order</Text>
       </TouchableOpacity>
     </SafeAreaView>
+  );
+}
+
+function ChatbotScreen() {
+  return (
+    <SafeAreaView style={{ flex: 1 }}>
+      <WebView source={{ uri: "https://joshds595.github.io/UX308-Assignment2" }} />
+    </SafeAreaView>
+  );
+}
+
+export default function App() {
+  return (
+    <NavigationContainer>
+      <Tab.Navigator>
+        <Tab.Screen name="Loyalty" component={LoyaltyScreen} />
+        <Tab.Screen name="Order Chat" component={ChatbotScreen} />
+      </Tab.Navigator>
+    </NavigationContainer>
   );
 }
 
